@@ -1,28 +1,26 @@
-(function($) {
+(function ($) {
   "use strict";
-  $(window).on("load", function() {
+  $(window).on("load", function () {
     // makes sure the whole site is loaded
     //preloader
     $("#status").fadeOut(); // will first fade out the loading animation
-    $("#preloader")
-      .delay(450)
-      .fadeOut("slow"); // will fade out the white DIV that covers the website.
+    $("#preloader").delay(450).fadeOut("slow"); // will fade out the white DIV that covers the website.
 
     //masonry
     $(".grid").masonry({
-      itemSelector: ".grid-item"
+      itemSelector: ".grid-item",
     });
   });
 
-  $(document).ready(function() {
+  $(document).ready(function () {
     //active menu
     $(document).on("scroll", onScroll);
 
-    $('a[href^="#"]').on("click", function(e) {
+    $('a[href^="#"]').on("click", function (e) {
       e.preventDefault();
       $(document).off("scroll");
 
-      $("a").each(function() {
+      $("a").each(function () {
         $(this).removeClass("active");
       });
       $(this).addClass("active");
@@ -33,11 +31,11 @@
         .stop()
         .animate(
           {
-            scrollTop: $target.offset().top + 2
+            scrollTop: $target.offset().top + 2,
           },
           500,
           "swing",
-          function() {
+          function () {
             window.location.hash = target;
             $(document).on("scroll", onScroll);
           }
@@ -52,7 +50,7 @@
       easing: "easeInOutCubic", // Easing pattern to use
       updateURL: true, // Boolean. Whether or not to update the URL with the anchor hash on scroll
       offset: 0, // Integer. How far to offset the scrolling anchor location in pixels
-      callback: function(toggle, anchor) {} // Function to run after scrolling
+      callback: function (toggle, anchor) {}, // Function to run after scrolling
     });
 
     //menu
@@ -73,7 +71,7 @@
       }
 
       // close the menu element if the target it´s not the menu element or one of its descendants..
-      content.addEventListener("click", function(ev) {
+      content.addEventListener("click", function (ev) {
         var target = ev.target;
         if (isOpen && target !== openbtn) {
           toggleMenu();
@@ -94,11 +92,11 @@
 
     //typed js
     $(".typed").typed({
-      strings: ["Иди к мечте", "Сдохни или умри", "Будь позитивиным"],
+      strings: ["Иди к мечте", "Сдохни или умри", "Будь позитивным"],
       typeSpeed: 100,
       backDelay: 900,
       // loop
-      loop: true
+      loop: true,
     });
 
     //owl carousel
@@ -113,7 +111,7 @@
 
       // CSS Styles
       baseClass: "owl-carousel",
-      theme: "owl-theme"
+      theme: "owl-theme",
     });
 
     $(".owl-carousel2").owlCarousel({
@@ -128,11 +126,11 @@
 
       // CSS Styles
       baseClass: "owl-carousel",
-      theme: "owl-theme"
+      theme: "owl-theme",
     });
 
     //contact
-    $("input").blur(function() {
+    $("input").blur(function () {
       // check if the input has any value (if we've typed into it)
       if ($(this).val()) $(this).addClass("used");
       else $(this).removeClass("used");
@@ -142,15 +140,15 @@
     $(".portfolio-image li a").magnificPopup({
       type: "image",
       gallery: {
-        enabled: true
-      }
+        enabled: true,
+      },
       // other options
     });
   });
 
   //header
   function inits() {
-    window.addEventListener("scroll", function(e) {
+    window.addEventListener("scroll", function (e) {
       var distanceY = window.pageYOffset || document.documentElement.scrollTop,
         shrinkOn = 300,
         header = document.querySelector(".for-sticky");
@@ -169,7 +167,7 @@
   //nav-active
   function onScroll(event) {
     var scrollPosition = $(document).scrollTop();
-    $(".menu-list a").each(function() {
+    $(".menu-list a").each(function () {
       var currentLink = $(this);
       var refElement = $(currentLink.attr("href"));
       if (

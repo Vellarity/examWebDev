@@ -26,7 +26,7 @@ body {
   background-color: #272d2d;
 }
 a {
-  color: #2f2f2f;
+  color: #00a676;
   text-decoration: none;
   transition: ease 0.6s;
   -webkit-transition: ease 0.6s;
@@ -36,7 +36,7 @@ a {
 }
 a:hover {
   text-decoration: none;
-  color: #818181;
+  color: #f0edee;
 }
 a:focus {
   outline: none;
@@ -52,6 +52,10 @@ img {
 }
 *:focus {
   outline: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 /*----------------------------------------- 2) Preloader --------------------------------------------------*/
@@ -734,7 +738,9 @@ ul.portfolio-image li .desc {
 }
 .grid-item .wrap-article {
   border: 1px solid rgba(129, 129, 129, 0.1);
+  border-radius: 20px;
   background: #0a090c;
+  border-color: #00a676;
   padding: 30px 20px;
 }
 .grid-item .wrap-article img {
@@ -988,7 +994,7 @@ ul.portfolio-image li .desc {
   text-align: center;
   color: #cccccc;
   display: table;
-  border-top: 1px solid #00a676;
+  border-top: 2px solid #00a676;
 }
 
 .socials {
