@@ -1,0 +1,469 @@
+<!doctype html>
+<html lang="en">
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <link rel="icon" href="img/LH_face.png" type="img" />
+  <link href="styles.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+    integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+    integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+    crossorigin="anonymous"></script>
+  <meta charset="UTF-8">
+</head>
+
+<body class="all">
+  <div class="preloader">
+    <div class="preloader__row">
+      <div class="preloader__item"> <img src="img/Animation.gif"></div>
+    </div>
+  </div>
+  <script>
+    window.onload = function () {
+      document.body.classList.add('loaded_hiding');
+      window.setTimeout(function () {
+        document.body.classList.add('loaded');
+        document.body.classList.remove('loaded_hiding');
+      }, 500);
+    }
+  </script>
+  <div class="prev">
+    <nav class="navbar navbar-expand-lg">
+      <a class="navbar-brand" href="#">
+        <img src="img/malina_toggle.png">
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Mynavbar"
+        aria-controls="Mynavbar" aria-expanded="false" aria-pressed="true" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon d-flex justify-content-center align-items-center"><img
+            src="img/pentaGraphic 2.png" width="40px" height="auto"></span>
+      </button>
+      <div class="collapse animateNav navbar-collapse justify-content-center" id="Mynavbar">
+        <ul class="navbar-nav">
+          <li class="nav-item d-flex justify-content-center">
+            <a class="menu nav-link active d-inline" href="/index.html">Главная <span
+                class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item d-flex justify-content-center">
+            <a class="menu nav-link d-inline" href="#">Ссылка</a>
+          </li>
+          <li class="nav-item d-flex justify-content-center">
+            <a class="menu nav-link d-inline" href="#">Ссылка</a>
+          </li>
+          <li class="nav-item d-flex justify-content-center">
+            <a class="menu nav-link d-inline" href="#report">Обратная связь</a>
+          </li>
+        </ul>
+        <div class="underline"></div>
+      </div>
+    </nav>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+          <svg>
+            <use xlink:href="img/wound.svg#bandage "></use>
+          </svg>
+          <p class="d-block">Безболезненно</p>
+        </div>
+        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+          <svg>
+            <use xlink:href="img/fire.svg#fire"></use>
+          </svg>
+          <p class="d-block">Быстро</p>
+        </div>
+        <div class="col-md-4 d-flex flex-column justify-content-center align-items-center">
+          <svg>
+            <use xlink:href="img/pentagram.svg#pentagram"></use>
+          </svg>
+          <p class="d-block">Адски круто</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="carouselId" class="carousel slide w-100 h-100 m-auto" data-ride="carousel" data-interval="8000"
+    data-pause="false">
+    <div class="carousel-inner" role="listbox">
+      <div class="carousel-item active">
+        <div class="container">
+          <div class="row ">
+            <div class="col-xl-4 d-none d-xl-block"><img src="img/LW_talk.png" alt="First slide" class="carouselimg">
+            </div>
+            <div class="col-md-6 col-xl-4 d-flex flex-column justify-content-center align-items-center">
+              <h1 class="text-center" style="color:#e7e6eb">О нас</h1>
+              <p class="text-center" style="font-size: large; color:#e7e6eb">Мы - те, кто привезёт ваш заказ быстрее,
+                чем грешник сгорит в котле</p>
+            </div>
+            <div class="col-md-6 col-xl-3"><img src="img/LW_yum.png" alt="First slide"
+                class="carouselimg float-xl-right rounded mx-auto d-block"></div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item carousel-block">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-4 d-none d-xl-block"><img src="img/jus_curious.png" alt="First slide"
+                class="carouselimg"></div>
+            <div class="col-md-6 col-xl-4 d-flex flex-column justify-content-center align-items-center">
+              <h1 class="text-center" style="color:#e7e6eb">Для вас</h1>
+              <p class="text-center" style="font-size: large; color:#e7e6eb">Для вас мы собрали всё самое вкусное и
+                разместили на этом сайте</p>
+            </div>
+            <div class="col-md-6 col-xl-4"><img src="img/jus_pc.png" alt="First slide" class="carouselimg"></div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item carousel-block">
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-4 d-none d-xl-block"><img src="img/beel_pc.png" alt="First slide" class="carouselimg ">
+            </div>
+            <div class="col-md-6 col-xl-4 d-flex flex-column justify-content-center align-items-center">
+              <h1 class="text-center" style="color:#e7e6eb">И в общем</h1>
+              <p class="text-center" style="font-size: large; color:#e7e6eb">Надеемся, вы найдёте то, что ищете<br>
+                (очень советуем бличики с бананом)</p>
+            </div>
+            <div class="col-md-6 col-xl-3"><img src="img/beel_idle.png" alt="First slide" class="carouselimg"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ol class="carousel-indicators ">
+      <li data-target="#carouselId" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselId" data-slide-to="1"></li>
+      <li data-target="#carouselId" data-slide-to="2"></li>
+    </ol>
+  </div>
+  <div class="prev listitems">
+    <div class="container d-flex justify-content-center">
+      <h2 class="text-center mt-4">Список Заведений</h2>
+    </div>
+    <div class="container">
+      <form name="form">
+        <div class="row justify-content-between">
+          <select class="form-control col-6 col-md-5" name="typeObject" id="typeObject">
+          </select>
+          <select class="form-control col-6 col-md-5" name="admArea" id="admArea">
+          </select>
+        </div>
+        <div class="row my-2 justify-content-between">
+          <select class="form-control col-12 col-md-5" name="socialPrivileges" id="socialPrivileges">
+          </select>
+          <div class="col-5 d-inline-flex">
+            <button id="poisk" type="button" onclick="btnsearch()">Поиск</button>
+            <button onclick="retun()">Сброс</button>
+          </div>
+        </div>
+      </form>
+      <table id="allnames" class="pt-3 w-100 sortable mx-0 px-0">
+        <thead>
+          <tr class="w-100">
+            <td class="text-uppercase d-md-table-cell">
+              <h4>Название</h4>
+            </td>
+            <td class="text-uppercase d-none d-md-table-cell text-md-center">
+              <h4>Тип</h4>
+            </td>
+            <td class="text-uppercase d-none d-md-table-cell text-center">
+              <h4>Адрес</h4>
+            </td>
+            <td class="text-uppercase text-center d-md-table-cell rate">
+              <h4>Рейтинг</h4>
+            </td>
+          </tr>
+        </thead>
+        <tbody id="spisok" class="spisokname mb-3">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="prev shop d-none" id="shop">
+    <h1 class="text-center text-uppercase pt-3">меню</h1>
+    <div class="container-fluid">
+      <div class="row justify-content-around" id="menucard">
+
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+  var k;
+  async function test() {
+    const response = await fetch("data1.json")//'http://exam-2020-1-api.std-400.ist.mospolytech.ru/api/data1');
+    const data = await response.json();
+    return data;
+  }
+  k = test();
+  console.log(k);
+  let mainContent = '',
+    main = document.querySelector('#spisok');
+  k.then(films => {
+    only20(films).forEach(film => {
+      mainContent += `
+        <tr class="pos" height="74px" id="${film.id}" onclick="menucards(this)">
+          <td class="d-md-table-cell  w-25">${film.name}</td>
+          <td class="d-none d-md-table-cell text-md-center">${film.typeObject}</td>
+          <td class="d-none d-md-table-cell" style="padding-left: 3rem !important">${film.district} ${film.address} </td>
+          <td class="text-center d-md-table-cell">${film.rate}</td>
+          <td class="d-none">${film.socialPrivileges}</td>
+          <td class="d-none">${film.admArea}</td>
+        </tr>`;
+    });
+    main.innerHTML = mainContent;
+    admSelector()
+    typeSelector()
+    socialSelector()
+    setTimeout(only, 1000);
+  });
+
+  function retun() {
+    event.preventDefault()
+    let mainContent = '',
+      main = document.querySelector('#spisok');
+    k.then(films => {
+      only20(films).forEach(film => {
+        mainContent += `
+        <tr class="unselectable pos" height="74px" id="${film.id}" onclick="menucards(this)">
+          <td class="d-md-table-cell unselectable  w-25">${film.name}</td>
+          <td class="d-none d-md-table-cell text-md-center">${film.typeObject}</td>
+          <td class="d-none d-md-table-cell" style="padding-left: 3rem !important">${film.district} ${film.address} </td>
+          <td class="text-center d-md-table-cell">${film.rate}</td>
+          <td class="d-none">${film.socialPrivileges}</td>
+          <td class="d-none">${film.admArea}</td>
+        </tr>`;
+      });
+      console.log(films);
+      main.innerHTML = mainContent;
+      setTimeout(only, 2000);
+    });
+  }
+
+  function tableSearch() {
+    k.then(films => {
+      let recordapp = [];
+      films.forEach(film => { recordapp.push(film) });
+      console.log(recordapp)
+      let searchOptions = [];
+      document.querySelectorAll("select").forEach((select) => {
+        let value;
+        let selected = select.options[select.selectedIndex];
+        if (selected.innerText == "Не выбрано") return;
+        if (select.name == "socialPrivileges")
+          value = selected.innerText == "Есть" ? 1 : 0;
+        else value = selected.innerText;
+        searchOptions.push({ name: select.name, value: value });
+        console.log(searchOptions)
+      });
+      for (option of searchOptions) {
+        recordapp = recordapp.filter((item) => item[option.name] == option.value);
+      }
+      recordapp.slice(0, 20);
+      console.log(recordapp.slice(0, 20))
+      let main = document.querySelector('#spisok');
+      let mainContent = ''
+      only20(recordapp).forEach((record) => {
+        console.log(record.name)
+        mainContent += `
+        <tr class="unselectable pos" height="74px" id="${record.id}" onclick="menucards(this)">
+          <td class="d-md-table-cell unselectable w-25">${record.name}</td>
+          <td class="d-none d-md-table-cell text-md-center">${record.typeObject}</td>
+          <td class="d-none d-md-table-cell" style="padding-left: 3rem !important">${record.district} ${record.address} </td>
+          <td class="text-center d-md-table-cell">${record.rate}</td>
+          <td class="d-none">${record.socialPrivileges}</td>
+          <td class="d-none">${record.admArea}</td>
+        </tr>`;
+      });
+      main.innerHTML = mainContent;
+    })
+  }
+
+  function btnsearch() {
+    tableSearch()
+  }
+
+  function only20(arr) {
+    return arr.filter((film) => film.rate != null).sort(function (prev, next) { return next.rate - prev.rate; }).slice(0, 20);
+  }
+
+  function admSelector() {
+    let id = 0;
+    let mainContent = `<option selected disabled hidden value='Не выбрано' id="adm">Не выбрано</option>`,
+      main = document.querySelector("#admArea");
+    k.then(films => {
+      films.forEach(film => {
+        id++
+        if (film.typeObject != null) {
+          mainContent += `
+        <option class="only" value="${film.admArea}">${film.admArea}</option>
+        `};
+      });
+      main.innerHTML = mainContent;
+    });
+  }
+
+  function typeSelector() {
+    let id = 0;
+    let mainContent = `<option selected disabled hidden value='Не выбрано' id="type">Не выбрано</option>`,
+      main = document.querySelector('#typeObject');
+    k.then(films => {
+      films.forEach(film => {
+        id++
+        if (film.typeObject != null) {
+          mainContent += `
+        <option class="only" value="${film.typeObject}">${film.typeObject}</option>
+        `};
+      });
+      main.innerHTML = mainContent;
+    });
+  }
+
+  function socialSelector() {
+    let id = 0;
+    let moinContent = `<option selected disabled hidden value='Не выбрано' id="soc">Не выбрано</option>`,
+      moin = document.querySelector('#socialPrivileges');
+    k.then(films => {
+      films.forEach(film => {
+        id++
+        if (film.socialPrivileges == 0) {
+          moinContent += `
+        <option class="only" value="${film.socialPrivileges}">Нет</option>
+        `}
+        else if (film.socialPrivileges == 1) {
+          moinContent += `
+        <option class="only" value="${film.socialPrivileges}">Есть</option>
+        `}
+      });
+      moin.innerHTML = moinContent;
+    });
+  }
+
+  function only() {
+    var usedNames = {};
+    $("select > .only").each(function () {
+      if (usedNames[this.text]) {
+        $(this).remove();
+      } else {
+        usedNames[this.text] = this.value;
+      }
+    });
+  }
+
+  function sortTable() {
+    var tbl = document.getElementById("allnames").tBodies[0];
+    var store = [];
+    for (var i = 0, len = tbl.rows.length; i < len; i++) {
+      var row = tbl.rows[i];
+      var sortnr = parseFloat(row.cells[3].textContent || row.cells[3].innerText);
+      if (!isNaN(sortnr)) store.push([sortnr, row]);
+    }
+    store.sort(function (x, y) {
+      return y[0] - x[0]
+    });
+    for (var i = 0, len = store.length; i < len; i++) {
+      tbl.appendChild(store[i][1]);
+    }
+    store = null;
+  }
+
+  async function menucards(el) {
+    let id = el.id
+    let url = "data1.json" + "/" + id
+    const response = await fetch(url)/*, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        "Accept": "application/json",
+        'Access-Control-Allow-Origin': "",
+      }
+    });*/
+    const json = await response.text();
+    console.log('Успех:', JSON.stringify(json), json.set_1);
+    //let arr = [json.set_1, json.set_2, json.set_3, json.set_4, json.set_5, json.set_6, json.set_7, json.set_8, json.set_9, json.set_10];
+    let arr = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+    const myres = await fetch("mine.json", {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        "Accept": "application/json",
+        'Access-Control-Allow-Origin': "",
+      }
+    });
+    const jgirl = await myres.json();
+    console.log(jgirl)
+    let main = document.querySelector('#menucard')
+    let mainContent = ""
+    for (let i = 0; i < 10; i++) {
+      mainContent += `
+    <div class="card col-xl-3 col-md-4 justify-content-center id="${i}">
+      <object type="image/svg+xml" data="img/TARELKA.svg"></object>
+      <div class="card-body counter">
+        <h2 class="card-title text-center">${jgirl[i].set_name}</h2>
+        <p class="card-text text-center">${jgirl[i].set_about}</p>
+        <p class="card-text text-center stoimost" id="stoimost">${arr[i]}</p> <p>Руб</p>
+        <section class="sumSet">
+          <div class="form-row d-flex justify-content-center align-content-end">
+            <button class="counter__minus">-</button>
+            <input class="form-control w-25 text-center form-control-sm mx-2 counter__input" id="sum" type="number" min="0" value="0" disabled/>
+            <button class="counter__plus">+</button>
+          </div>
+        </section>
+      </div>
+    </div>
+    `
+    }
+    main.innerHTML = mainContent;
+    $('#shop').removeClass('d-none')
+    var summ = []
+
+    var Counter = function (counter) {
+      this.counter = counter;
+      this.minus = counter.querySelector('.counter__minus');
+      this.plus = counter.querySelector('.counter__plus');
+      this.field = counter.querySelector('.counter__input');
+      this.stoimost = counter.querySelector('.stoimost');
+      this.events();
+    }
+    Counter.prototype.events = function () {
+      this.plus.addEventListener('click', this.increment.bind(this));
+      this.minus.addEventListener('click', this.decrement.bind(this));
+      for (var cell in this.cells) {
+        this.cells[cell].addEventListener('click', this.changeFromTable.bind(this, this.cells[cell]));
+      }
+    }
+    Counter.prototype.increment = function () {
+      this.field.value = parseInt(this.field.value) + 1;
+      var text = this.stoimost.textContent;
+      var number = Number(text);
+      summ.push(number)
+      console.log(summ)
+    }
+    Counter.prototype.decrement = function () {
+      var newValue = parseInt(this.field.value) - 1;
+      if (newValue < 0) {
+        newValue = 0;
+      }
+      this.field.value = newValue;
+      let text = this.stoimost.textContent;
+      let number = Number(text);
+      var index = summ.indexOf(number);
+      if (index > -1) {
+        summ.splice(index, 1);
+      }
+      console.log(summ)
+    }
+    var counters = document.querySelectorAll('.counter');
+    counters = Array.prototype.slice.call(counters);
+    counters.forEach(function (counter) {
+      new Counter(counter);
+    });
+  }
+
+</script>
+
+</html>

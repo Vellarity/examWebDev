@@ -1,0 +1,194 @@
+@import url("fonts/stylesheet.css");
+:root {
+  --main-font: "Vollkorn-regular", monospace;
+}
+
+* {
+  font-family: "Vollkorn-regular";
+}
+
+.all {
+  background-color: #70242e;
+  background: #70242e;
+  font-family: "Vollkorn-regular";
+}
+
+.prev {
+  background-color: #24243a;
+  color: #e7e6eb;
+}
+
+.prev p {
+  font-size: 25px;
+}
+
+.carouselimg {
+  height: 450px;
+}
+
+.menu {
+  color: #e7e6eb;
+  font-size: 30px;
+}
+
+.menu:hover {
+  color: #e7e6eb;
+}
+
+svg {
+  fill: #e7e6eb;
+  height: 70px;
+  width: auto;
+}
+
+.card {
+  background: #0d0d26;
+  background-color: #0d0d26 !important;
+  border-radius: none;
+  margin: 30px;
+}
+
+/*.card-body{
+  background-color: #70242e !important;
+}*/
+
+table {
+  color: #e7e6eb !important;
+  background-color: #0d0d26 !important;
+}
+
+.shop {
+  background-color: #24243a;
+}
+
+.mybtn {
+  color: #e7e6eb !important;
+  background-color: #70242e !important;
+  background: #70242e;
+  width: 70px;
+  height: 70px;
+}
+
+button:active,
+button:focus {
+  outline: none !important;
+}
+button::-moz-focus-inner {
+  border: 0 !important;
+}
+
+select:active,
+select:focus {
+  outline: none !important;
+}
+select::-moz-focus-inner {
+    border: 0 !important;
+  }
+
+.spisokname {
+  background: #0d0d26;
+  background-color: #0d0d26 !important;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.pos:hover {
+  background-color: #02021c;
+  transition: 0.5s;
+}
+
+.listitems {
+  background: url("img/man_pc.png"), url("img/pand_drink.png");
+  background-repeat: no-repeat;
+  background-color: #24243a;
+  background-position: bottom right,0% 40%;
+  background-size: 400px auto;
+  z-index: 3;
+}
+
+.preloader {
+  /*фиксированное позиционирование*/
+  position: fixed;
+  /* координаты положения */
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  /* фоновый цвет элемента */
+  background: #70242e;
+  /* размещаем блок над всеми элементами на странице (это значение должно быть больше, чем у любого другого позиционированного элемента на странице) */
+  z-index: 1001;
+}
+
+.preloader__row {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  margin-top: -35px;
+  margin-left: -35px;
+  text-align: center;
+}
+
+.loaded .preloader {
+  display: none;
+}
+
+.preloader__item:last-child {
+  top: auto;
+  bottom: 0;
+  animation-delay: -1s;
+}
+
+@keyframes preloader-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes preloader-bounce {
+  0%,
+  100% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1);
+  }
+}
+
+.loaded_hiding .preloader {
+  transition: 0.3s opacity;
+  opacity: 0;
+}
+
+.form-control {
+  background-color: #0d0d26 !important;
+  color: #e7e6eb !important;
+  border-radius: 1px !important;
+  border: none !important;
+}
+
+.card-text{
+  font-size: 16px !important;
+}
+
+.line-clamp-3 {
+  /* Обязательные объявления: */
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+
+  /* Ограничиваем блок текста тремя строками */
+  -webkit-line-clamp: 1;
+}
+
+.backpand{
+  position: relative;
+  margin-top: 300px;
+  width: 350px;
+  height: auto;
+}
