@@ -189,13 +189,71 @@
       <div class="row justify-content-around" id="menucard">
 
       </div>
+      <div class="itog row">
+        <p class="pt-3 ml-5">Итого:</p>
+        <p class="pt-3 ml-5" id="returnsum"></p>
+      </div>
+
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Оформление заказа
+      </button>
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel" onclick="fillmodal()">Оформление заказа</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="poZak">
+
+              </div>
+              <div class="dopOptions">
+                <p class="mt-2">Доп. опции:</p>
+                <div class="form-row">
+                  <div class="col-md-6 py-3 position-relative">
+                    <div class="form-check">
+                      <label class="form-check-label" for="unContact">
+                        Хочу подарок
+                      </label>
+                      <input class="form-check-input ml-5" type="checkbox" value="" id="unContact"/>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6 py-3 position-relative">
+                    <div class="form-check">
+                      <label class="form-check-label" for="socDisc">
+                        На компанию
+                      </label>
+                      <input class="form-check-input ml-5" type="checkbox" value="" id="socDisc"/>
+                    </div>
+                  </div>
+                </div>
+              <div class="infoZav">
+                <p>Информация о заведении</p>
+
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+              <button type="button" class="btn btn-primary" onclick="fillmodal()">Оформить вкид</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </body>
 <script>
   var k;
+  var json;
   async function test() {
-    const response = await fetch("data1.json")//'http://exam-2020-1-api.std-400.ist.mospolytech.ru/api/data1');
+    const response = await fetch('http://exam-2020-1-api.std-900.ist.mospolytech.ru/api/data1');
     const data = await response.json();
     return data;
   }
@@ -372,20 +430,18 @@
   }
 
   async function menucards(el) {
-    let id = el.id
-    let url = "data1.json" + "/" + id
-    const response = await fetch(url)/*, {
+    id = el.id
+    let url = "http://exam-2020-1-api.std-900.ist.mospolytech.ru/api/data1/" + id
+    const response = await fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         "Accept": "application/json",
-        'Access-Control-Allow-Origin': "",
       }
-    });*/
-    const json = await response.text();
+    });
+    json = await response.json();
     console.log('Успех:', JSON.stringify(json), json.set_1);
-    //let arr = [json.set_1, json.set_2, json.set_3, json.set_4, json.set_5, json.set_6, json.set_7, json.set_8, json.set_9, json.set_10];
-    let arr = [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000]
+    let arr = [json.set_1, json.set_2, json.set_3, json.set_4, json.set_5, json.set_6, json.set_7, json.set_8, json.set_9, json.set_10];
     const myres = await fetch("mine.json", {
       method: 'GET',
       headers: {
@@ -405,7 +461,9 @@
       <div class="card-body counter">
         <h2 class="card-title text-center">${jgirl[i].set_name}</h2>
         <p class="card-text text-center">${jgirl[i].set_about}</p>
+        <div class="row justify-content-around">
         <p class="card-text text-center stoimost" id="stoimost">${arr[i]}</p> <p>Руб</p>
+        </div>
         <section class="sumSet">
           <div class="form-row d-flex justify-content-center align-content-end">
             <button class="counter__minus">-</button>
@@ -442,6 +500,7 @@
       var number = Number(text);
       summ.push(number)
       console.log(summ)
+      returnsum(summ)
     }
     Counter.prototype.decrement = function () {
       var newValue = parseInt(this.field.value) - 1;
@@ -456,6 +515,7 @@
         summ.splice(index, 1);
       }
       console.log(summ)
+      returnsum(summ)
     }
     var counters = document.querySelectorAll('.counter');
     counters = Array.prototype.slice.call(counters);
@@ -463,6 +523,56 @@
       new Counter(counter);
     });
   }
+
+  function returnsum(array) {
+    let main = document.querySelector('#returnsum')
+    mainContent = ""
+    let sum = 0
+    for (let i = 0; i < array.length; i++) {
+      sum += array[i]
+    }
+    main.innerHTML = sum
+}
+
+function fillmodal(){
+  let namearr = []
+  let colarr = []
+  let main = document.querySelector(".poZak")
+  mainContent=""
+  let cards = document.querySelectorAll(".card")
+  cards.forEach(card => {
+    let name = card.querySelector("h2")
+    namearr.push(name.innerText)
+    let colvo = card.querySelector("input")
+    let colvonum = Number(colvo.value)
+    colarr.push(colvonum)
+  })
+  for(let i = 0; i<10;i++){
+    if (colarr[i] == 0) continue;
+    mainContent +=`
+    <div class="row rwitem mb-2">
+      <div class="col d-flex justify-content-center align-items-center"><object type="image/svg+xml" data="img/TARELKA.svg"></object></div>
+      <div class="col d-flex justify-content-center align-items-center text-center">${namearr[i]}</div>
+      <div class="col d-flex justify-content-center align-items-center"> x ${colarr[i]}</div>
+    </div>
+    `
+  }
+  main.innerHTML = mainContent;
+  main = document.querySelector(".infoZav")
+  mainContent=`<p class="mt-2">Информация о заведении:</p>`
+  mainContent+=`
+  <div class="row">
+    <div class="font-weight-bold">Название:</div><p class="card-text">${json.name}</p>
+  </div>
+  <div class="row">
+    <div class="font-weight-bold">Адрес:</div><p class="card-text">${json.district} ${json.address}</p>
+  </div>
+  <div class="row">
+    <div class="font-weight-bold">Рейтинг:</div><p class="card-text">${json.rate}</p>
+  </div>
+  `
+  main.innerHTML = mainContent;
+}
 
 </script>
 
