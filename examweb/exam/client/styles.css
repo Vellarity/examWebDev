@@ -22,6 +22,15 @@
   font-size: 25px;
 }
 
+.priv {
+  background-color: #0d0d26;
+  color: #e7e6eb;
+}
+
+.priv p {
+  font-size: 25px;
+}
+
 .carouselimg {
   height: 450px;
 }
@@ -58,7 +67,11 @@ table {
 }
 
 .shop {
-  background-color: #24243a;
+  background-color: #24243a !important;
+  background: url(img/mal_bottle.png);
+  background-repeat: no-repeat;
+  background-position: bottom left;
+  background-size: 400px auto;
 }
 
 .mybtn {
@@ -67,6 +80,29 @@ table {
   background: #70242e;
   width: 70px;
   height: 70px;
+}
+
+.btnmenu{
+  color: #e7e6eb !important;
+  background-color: #70242e !important;
+  border: none;
+  width:40px;
+  height: auto;
+}
+
+.btnred{
+  color: #e7e6eb !important;
+  background-color: #70242e !important;
+  border: none !important;
+}
+
+.btnred:active,
+.btnred:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.btnred::-moz-focus-inner {
+  border: 0 !important;
 }
 
 button:active,
@@ -105,7 +141,6 @@ select::-moz-focus-inner {
   background-color: #24243a;
   background-position: bottom right,0% 40%;
   background-size: 400px auto;
-  z-index: 3;
 }
 
 .preloader {
@@ -176,6 +211,10 @@ select::-moz-focus-inner {
   font-size: 16px !important;
 }
 
+#stoimost{
+  font-size: 25px !important;
+}
+
 .line-clamp-3 {
   /* Обязательные объявления: */
   overflow: hidden;
@@ -186,9 +225,28 @@ select::-moz-focus-inner {
   -webkit-line-clamp: 1;
 }
 
-.backpand{
-  position: relative;
-  margin-top: 300px;
-  width: 350px;
-  height: auto;
+.modal-content{
+  background-color: /*#24243a*/ #70242e !important;
+  background: url(img/mal_phone.png);
+  background-repeat: no-repeat;
+  background-position:bottom right;
+  background-size: 300px auto;
+}
+
+.rwitem{
+  background:  #24243a;
+}
+
+.modal-header{
+  background-color: #24243a  !important;
+}
+
+.modal-footer{
+  background-color: #24243a  !important;
+}
+
+footer{
+  background-color: #0d0d26;
+  color: #e7e6eb;
+  font-size: 30px;
 }

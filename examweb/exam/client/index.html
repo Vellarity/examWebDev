@@ -18,6 +18,7 @@
     integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
     crossorigin="anonymous"></script>
   <meta charset="UTF-8">
+  <title>HellDelivery</title>
 </head>
 
 <body class="all">
@@ -35,7 +36,7 @@
       }, 500);
     }
   </script>
-  <div class="prev">
+  <div class="priv">
     <nav class="navbar navbar-expand-lg">
       <a class="navbar-brand" href="#">
         <img src="img/malina_toggle.png">
@@ -155,9 +156,9 @@
         <div class="row my-2 justify-content-between">
           <select class="form-control col-12 col-md-5" name="socialPrivileges" id="socialPrivileges">
           </select>
-          <div class="col-5 d-inline-flex">
-            <button id="poisk" type="button" onclick="btnsearch()">Поиск</button>
-            <button onclick="retun()">Сброс</button>
+          <div class="col-5 d-inline-flex justify-content-between">
+            <button id="poisk" type="button" onclick="btnsearch()" class="btnred">Поиск</button>
+            <button onclick="retun()" class="btnred">Сброс</button>
           </div>
         </div>
       </form>
@@ -189,67 +190,84 @@
       <div class="row justify-content-around" id="menucard">
 
       </div>
-      <div class="itog row">
-        <p class="pt-3 ml-5">Итого:</p>
-        <p class="pt-3 ml-5" id="returnsum"></p>
-      </div>
+      <div class="row justify-content-around">
+        <div class="itog row">
+          <p class="pt-3 ml-5">Итого:</p>
+          <p class="pt-3 ml-5" id="returnsum">0</p>
+          <p class="pt-3 ml-5">Руб</p>
+        </div>
 
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Оформление заказа
-      </button>
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel" onclick="fillmodal()">Оформление заказа</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="poZak">
-
+        <button type="button" class="btn btn-primary btnred" data-toggle="modal" data-target="#exampleModal"
+          onclick="fillmodal()">
+          Оформление заказа
+        </button>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Оформление заказа</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
               </div>
-              <div class="dopOptions">
-                <p class="mt-2">Доп. опции:</p>
-                <div class="form-row">
-                  <div class="col-md-6 py-3 position-relative">
-                    <div class="form-check">
-                      <label class="form-check-label" for="unContact">
-                        Хочу подарок
-                      </label>
-                      <input class="form-check-input ml-5" type="checkbox" value="" id="unContact"/>
+              <div class="modal-body pt-0">
+                <div class="poZak">
+                </div>
+                <div class="dopOptions">
+                  <p class="mt-2">Доп. опции:</p>
+                  <div class="form-row">
+                    <div class="col-md-6 py-3 position-relative">
+                      <div class="form-check">
+                        <label class="form-check-label" for="unContact">
+                          Хочу подарок
+                        </label>
+                        <input class="form-check-input ml-5" type="checkbox" value="" id="unContact" />
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="form-row">
-                  <div class="col-md-6 py-3 position-relative">
-                    <div class="form-check">
-                      <label class="form-check-label" for="socDisc">
-                        На компанию
-                      </label>
-                      <input class="form-check-input ml-5" type="checkbox" value="" id="socDisc"/>
+                  <div class="form-row">
+                    <div class="col-md-6 py-3 position-relative">
+                      <div class="form-check">
+                        <label class="form-check-label" for="socDisc">
+                          На компанию
+                        </label>
+                        <input class="form-check-input ml-5" type="checkbox" value="" id="socDisc" />
+                      </div>
                     </div>
                   </div>
+                  <div class="infoZav">
+                    <p>Информация о заведении</p>
+                  </div>
                 </div>
-              <div class="infoZav">
-                <p>Информация о заведении</p>
-
               </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
-              <button type="button" class="btn btn-primary" onclick="fillmodal()">Оформить вкид</button>
+              <div class="modal-footer">
+                <div class="d-inline-flex justify-content-start">
+                  <p>Итого:</p>
+                  <p id="totalsum"></p>
+                  <p>Руб</p>
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                <button type="button" class="btn btn-primary">Оформить вкид</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
+  <footer class="container-fluid py-5">
+    <div>
+      <div class="row">
+        <div class="col text-center">
+          HellDelivery Inc.
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 <script>
+  var summ = []
   var k;
   var json;
   async function test() {
@@ -466,9 +484,9 @@
         </div>
         <section class="sumSet">
           <div class="form-row d-flex justify-content-center align-content-end">
-            <button class="counter__minus">-</button>
+            <button class="counter__minus btnmenu">-</button>
             <input class="form-control w-25 text-center form-control-sm mx-2 counter__input" id="sum" type="number" min="0" value="0" disabled/>
-            <button class="counter__plus">+</button>
+            <button class="counter__plus btnmenu">+</button>
           </div>
         </section>
       </div>
@@ -477,7 +495,6 @@
     }
     main.innerHTML = mainContent;
     $('#shop').removeClass('d-none')
-    var summ = []
 
     var Counter = function (counter) {
       this.counter = counter;
@@ -523,56 +540,60 @@
       new Counter(counter);
     });
   }
-
+  let sum = 0
   function returnsum(array) {
     let main = document.querySelector('#returnsum')
     mainContent = ""
-    let sum = 0
     for (let i = 0; i < array.length; i++) {
       sum += array[i]
     }
     main.innerHTML = sum
-}
-
-function fillmodal(){
-  let namearr = []
-  let colarr = []
-  let main = document.querySelector(".poZak")
-  mainContent=""
-  let cards = document.querySelectorAll(".card")
-  cards.forEach(card => {
-    let name = card.querySelector("h2")
-    namearr.push(name.innerText)
-    let colvo = card.querySelector("input")
-    let colvonum = Number(colvo.value)
-    colarr.push(colvonum)
-  })
-  for(let i = 0; i<10;i++){
-    if (colarr[i] == 0) continue;
-    mainContent +=`
-    <div class="row rwitem mb-2">
-      <div class="col d-flex justify-content-center align-items-center"><object type="image/svg+xml" data="img/TARELKA.svg"></object></div>
-      <div class="col d-flex justify-content-center align-items-center text-center">${namearr[i]}</div>
-      <div class="col d-flex justify-content-center align-items-center"> x ${colarr[i]}</div>
-    </div>
-    `
   }
-  main.innerHTML = mainContent;
-  main = document.querySelector(".infoZav")
-  mainContent=`<p class="mt-2">Информация о заведении:</p>`
-  mainContent+=`
-  <div class="row">
-    <div class="font-weight-bold">Название:</div><p class="card-text">${json.name}</p>
-  </div>
-  <div class="row">
-    <div class="font-weight-bold">Адрес:</div><p class="card-text">${json.district} ${json.address}</p>
-  </div>
-  <div class="row">
-    <div class="font-weight-bold">Рейтинг:</div><p class="card-text">${json.rate}</p>
-  </div>
+
+  function fillmodal() {
+    let namearr = []
+    let colarr = []
+    let main = document.querySelector(".poZak")
+    mainContent = ""
+    let cards = document.querySelectorAll(".card")
+    cards.forEach(card => {
+      let name = card.querySelector("h2")
+      namearr.push(name.innerText)
+      let colvo = card.querySelector("input")
+      let colvonum = Number(colvo.value)
+      colarr.push(colvonum)
+    })
+    for (let i = 0; i < 10; i++) {
+      if (colarr[i] == 0) continue;
+      mainContent += `
+        <div class="row rwitem">
+          <div class="col d-flex justify-content-center align-items-center"><object type="image/svg+xml" data="img/TARELKA.svg"></object></div>
+          <div class="col d-flex justify-content-center align-items-center text-center">${namearr[i]}</div>
+          <div class="col d-flex justify-content-center align-items-center"> x ${colarr[i]}</div>
+        </div>
+        `
+      }
+    main.innerHTML = mainContent;
+    main = document.querySelector(".infoZav")
+    mainContent = `<p class="mt-2">Информация о заведении:</p>`
+    mainContent += `
+      <div class="row">
+        <div class="font-weight-bold">Название:</div><p class="card-text">${json.name}</p>
+      </div>
+      <div class="row">
+        <div class="font-weight-bold">Адрес:</div><p class="card-text">${json.district} ${json.address}</p>
+      </div>
+      <div class="row">
+        <div class="font-weight-bold">Рейтинг:</div><p class="card-text">${json.rate}</p>
+      </div>
   `
-  main.innerHTML = mainContent;
-}
+    main.innerHTML = mainContent;
+    main = document.querySelector("#totalsum")
+    main.innerHTML = sum
+
+    $
+  }
+
 
 </script>
 
