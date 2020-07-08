@@ -102,6 +102,13 @@ table {
   outline: none !important;
   box-shadow: none !important;
 }
+
+.btnred:hover{
+  transition: 0.7s;
+  background-color: #e7e6eb !important;
+  color:#70242e !important;
+}
+
 .btnred::-moz-focus-inner {
   border: 0 !important;
 }
@@ -250,4 +257,33 @@ footer{
   background-color: #0d0d26;
   color: #e7e6eb;
   font-size: 30px;
+}
+
+.modal-header{
+  color:#e7e6eb
+}
+
+.radio{
+  background-color:#e7e6eb ;
+  border-radius: 5px;
+}
+
+.page-link{
+  background-color: #70242e !important;
+  color:#e7e6eb !important;
+  outline: none;
+  cursor: pointer;
+}
+
+.page-item.active .page-link {
+  border: 1px solid #0d0d26 !important;
+  outline: none !important;
+}
+
+.page-link:hover{
+  outline: none;
+}
+
+.btn-secondary{
+  border-radius: 0px !important;
 }

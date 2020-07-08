@@ -1,0 +1,732 @@
+<!doctype html>
+<html lang="en">
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="icon" href="img/LH_face.png" type="img" />
+    <link href="admin.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>HellDelivery</title>
+</head>
+
+<body class="all">
+    <div class="preloader">
+        <div class="preloader__row">
+            <div class="preloader__item"> <img src="img/Animation.gif"></div>
+        </div>
+    </div>
+    <script>
+        window.onload = function () {
+            document.body.classList.add('loaded_hiding');
+            window.setTimeout(function () {
+                document.body.classList.add('loaded');
+                document.body.classList.remove('loaded_hiding');
+            }, 500);
+        }
+    </script>
+    <div class="priv">
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="#">
+                <img src="img/malina_toggle.png">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#Mynavbar"
+                aria-controls="Mynavbar" aria-expanded="false" aria-pressed="true" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon d-flex justify-content-center align-items-center"><img
+                        src="img/pentaGraphic 2.png" width="40px" height="auto"></span>
+            </button>
+            <div class="collapse animateNav navbar-collapse justify-content-center" id="Mynavbar">
+                <ul class="navbar-nav">
+                    <li class="nav-item d-flex justify-content-center">
+                        <a class="menu nav-link active d-inline" href="index.html">Главная<span
+                                class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item d-flex justify-content-center">
+                        <a class="menu nav-link d-inline" href="#spis">Список заведений</a>
+                    </li>
+                </ul>
+                <div class="underline"></div>
+            </div>
+        </nav>
+        <button class="position-absolute w-100 btnred btn" type="button" data-toggle="modal" data-target="#addModal">Добавить запись</button>
+        <div class="prev listitems" id="spis">
+            <div class="container d-flex justify-content-center">
+                <h2 class="text-center mt-5">Список Заведений</h2>
+            </div>
+            <div class="container">
+                <form class="mx-md-5" id="search">
+                    <div class="form-row">
+                        <div class="col m-1">
+                            <label for="nameSearch">Наименование</label>
+                            <input class="form-control" type="text" name="name" id="nameSearch" />
+                        </div>
+                        <div class="col-md-4 m-1">
+                            <label for="admAreaSearch">Адмиистративный округ</label>
+                            <select name="admArea" , id="admAreaSearch" class="form-control">
+                                <option selected>Не выбрано</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col m-1">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col">
+                                        <legend>Количество посадочных мест</legend>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col p-0 pr-1 justify-content-end align-items-center d-flex">
+                                        <label class="m-0" for="seatsCountFrom">От</label>
+                                    </div>
+                                    <div class="col-5 pl-0">
+                                        <input class="form-control" type="number" min="0" value="0" name="seatsCount"
+                                            id="seatsCountFrom" />
+                                    </div>
+
+                                    <div class="col p-0 pr-1 justify-content-end align-items-center d-flex">
+                                        <label class="m-0" for="seatsCountTill">До</label>
+                                    </div>
+                                    <div class="col-5 pl-0">
+                                        <input class="form-control" type="number" min="0" value="0" name="seatsCount"
+                                            id="seatsCountTill" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-2 m-1">
+                            <label for="isNetObjectSearch">Является сетевым</label>
+                            <select name="isNetObject" id="isNetObjectSearch" class="form-control">
+                                <option selected>Не выбрано</option>
+                                ><option>Да</option>
+                                ><option>Нет</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 m-1">
+                            <label for="districtSearch">Район</label>
+                            <select name="district" id="districtSearch" class="form-control">
+                                <option selected>Не выбрано</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col m-1">
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col">
+                                        <legend>Дата создания</legend>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col p-0 pr-1 justify-content-end align-items-center d-flex">
+                                        <label class="m-0" for="created_atFrom">С</label>
+                                    </div>
+                                    <div class="col-5 pl-0">
+                                        <input class="form-control" type="date" name="created_at" id="created_atFrom" />
+                                    </div>
+
+                                    <div class="col p-0 pr-1 justify-content-end align-items-center d-flex">
+                                        <label class="m-0" for="created_atTill">По</label>
+                                    </div>
+                                    <div class="col-5 pl-0">
+                                        <input class="form-control" type="date" name="created_at" id="created_atTill" />
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div class="col-md-2 m-1">
+                            <label for="socialPrivilegesSearch">Льготы</label>
+                            <select name="socialPrivileges" id="socialPrivilegesSearch" class="form-control">
+                                <option selected>Не выбрано</option>
+                                <option>Да</option>
+                                <option>Нет</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 m-1">
+                            <label for="typeObjectSearch">Вид объекта</label>
+                            <select name="typeObject" id="typeObjectSearch" class="form-control">
+                                <option selected>Не выбрано</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4 offset-md-4 mt-2">
+                            <button id="filterBtn" type="button" class="my-3 w-100 btnred">
+                                Найти
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <table id="allnames" class="pt-3 w-100 sortable mx-0 px-0">
+                    <thead>
+                        <tr class="w-100">
+                            <td class="text-uppercase d-md-table-cell">
+                                <h4>Название</h4>
+                            </td>
+                            <td class="text-uppercase d-none d-md-table-cell text-md-center">
+                                <h4>Тип</h4>
+                            </td>
+                            <td class="text-uppercase d-none d-md-table-cell text-center">
+                                <h4>Адрес</h4>
+                            </td>
+                            <td class="text-uppercase text-center d-md-table-cell rate">
+                                <h4>Действия</h4>
+                            </td>
+                        </tr>
+                    </thead>
+                    <div class="form-group d-none">
+                        <select class="form-control" name="state" id="maxRows">
+                            <option value="5000">Show ALL Rows</option>
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="70">70</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+                    <tbody id="spisok" class="spisokname mb-3">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class='pagination-container d-flex justify-content-center'>
+            <nav>
+                <ul class="pagination" onmousedown="return false" onselectstart="return false">
+                    <li data-page="prev" class="page-item">
+                        <span class="page-link">
+                            <<span class="sr-only">(current)
+                        </span></span>
+                    </li>
+                    <li data-page="next" id="prev" class="page-item"><span class="page-link">><span
+                                class="sr-only">(current)</span></span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Информация о заведении</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body ">
+                    <div class="input-group mb-3 about">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Название</span>
+                        </div>
+                        <input type="text" class="form-control recordname" aria-describedby="basic-addon1" disabled>
+                    </div>
+                    <div class="row">
+                        <div class="input-group mb-3 about col-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon2">Тип</span>
+                            </div>
+                            <input type="text" class="form-control recordtype" aria-describedby="basic-addon2" disabled>
+                        </div>
+                        <div class="input-group mb-3 about col-6">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon3">Рейтинг</span>
+                            </div>
+                            <input type="text" class="form-control recordrate" aria-describedby="basic-addon3" disabled>
+                        </div>
+                    </div>
+                    <div class="radio mb-3">
+                        <div class="row">
+                            <div class="col-5 offset-1">Сетевой:</div>
+                            <div class="col-5 offset-1">Льготы:</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-5 offset-1">
+                                <p><input name="isNetObject" type="radio" value="1" disabled>Да</p>
+                                <p><input name="isNetObject" type="radio" value="0" disabled>Нет</p>
+                            </div>
+                            <div class="col-5 offset-1">
+                                <p><input name="socialPrivileges" type="radio" value="1" disabled>Да</p>
+                                <p><input name="socialPrivileges" type="radio" value="0" disabled>Нет</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend ">
+                            <span class="input-group-text">Адрес</span>
+                        </div>
+                        <textarea class="form-control recordAddress" aria-label="With textarea"></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="input-group mb-3 about col-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon6">Мест</span>
+                            </div>
+                            <input type="text" class="form-control recordSeats" aria-describedby="basic-addon6"
+                                disabled>
+                        </div>
+                        <div class="input-group mb-3 about col-8">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon7">Телефон</span>
+                            </div>
+                            <input type="text" class="form-control recordNumber" aria-describedby="basic-addon7"
+                                disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="putModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="putModalLabel">Информация о заведении</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body ">
+                    <form id="formput">
+                        <div class="input-group mb-3 about">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Название</span>
+                            </div>
+                            <input type="text" class="form-control recordname" name="name"
+                                aria-describedby="basic-addon1">
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3 about col-6">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2">Тип</span>
+                                </div>
+                                <input type="text" class="form-control recordtype" name="typeObject"
+                                    aria-describedby="basic-addon2">
+                            </div>
+                            <div class="input-group mb-3 about col-6">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Рейтинг</span>
+                                </div>
+                                <input type="text" class="form-control recordrate" name="rate"
+                                    aria-describedby="basic-addon3">
+                            </div>
+                        </div>
+                        <div class="radio mb-3">
+                            <div class="row">
+                                <div class="col-5 offset-1">Сетевой:</div>
+                                <div class="col-5 offset-1">Льготы:</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5 offset-1">
+                                    <p><input name="isNetObject" type="radio" value="1">Да</p>
+                                    <p><input name="isNetObject" type="radio" value="0">Нет</p>
+                                </div>
+                                <div class="col-5 offset-1">
+                                    <p><input name="socialPrivileges" type="radio" value="1">Да</p>
+                                    <p><input name="socialPrivileges" type="radio" value="0">Нет</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend ">
+                                <span class="input-group-text">Адрес</span>
+                            </div>
+                            <textarea class="form-control recordAddress" name="address"
+                                aria-label="With textarea"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3 about col-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon6">Мест</span>
+                                </div>
+                                <input type="text" class="form-control recordSeats" name="seatsCount"
+                                    aria-describedby="basic-addon6">
+                            </div>
+                            <div class="input-group mb-3 about col-8">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon7">Телефон</span>
+                                </div>
+                                <input type="text" class="form-control recordNumber" name="publicPhone"
+                                    aria-describedby="basic-addon7">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        onclick="putrefs()">Подтвердить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="putModalLabel">Вы уверены?!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class=" bg-white">
+                    Вы уверены, что хотите удалить данную запись? Отменить данное действие будет невозможно!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+                    <button type="button" class="btn btn-secondary btnred" data-dismiss="modal"
+                        onclick="deleteRef()">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="putModalLabel">Информация о заведении</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body ">
+                    <form id="formadd">
+                        <div class="input-group mb-3 about">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Название</span>
+                            </div>
+                            <input type="text" class="form-control recordname" name="name"
+                                aria-describedby="basic-addon1">
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3 about col-6">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon2">Тип</span>
+                                </div>
+                                <input type="text" class="form-control recordtype" name="typeObject"
+                                    aria-describedby="basic-addon2">
+                            </div>
+                            <div class="input-group mb-3 about col-6">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon3">Рейтинг</span>
+                                </div>
+                                <input type="text" class="form-control recordrate" name="rate"
+                                    aria-describedby="basic-addon3">
+                            </div>
+                        </div>
+                        <div class="radio mb-3">
+                            <div class="row">
+                                <div class="col-5 offset-1">Сетевой:</div>
+                                <div class="col-5 offset-1">Льготы:</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-5 offset-1">
+                                    <p><input name="isNetObject" type="radio" value="1">Да</p>
+                                    <p><input name="isNetObject" type="radio" value="0">Нет</p>
+                                </div>
+                                <div class="col-5 offset-1">
+                                    <p><input name="socialPrivileges" type="radio" value="1">Да</p>
+                                    <p><input name="socialPrivileges" type="radio" value="0">Нет</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend ">
+                                <span class="input-group-text">Адрес</span>
+                            </div>
+                            <textarea class="form-control recordAddress" name="address"
+                                aria-label="With textarea"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="input-group mb-3 about col-4">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon6">Мест</span>
+                                </div>
+                                <input type="text" class="form-control recordSeats" name="seatsCount"
+                                    aria-describedby="basic-addon6">
+                            </div>
+                            <div class="input-group mb-3 about col-8">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon7">Телефон</span>
+                                </div>
+                                <input type="text" class="form-control recordNumber" name="publicPhone"
+                                    aria-describedby="basic-addon7">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"
+                        onclick="addRef()">Добавить запись</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var k;
+    var json;
+    var id;
+    async function test() {
+        const response = await fetch('http://exam-2020-1-api.std-900.ist.mospolytech.ru/api/data1');
+        const data = await response.json();
+        return data;
+    }
+    k = test();
+    console.log(k);
+    let mainContent = '',
+        main = document.querySelector('#spisok');
+    k.then(films => {
+        films.forEach(film => {
+            mainContent += `
+            <tr class="pos" height="74px" id="${film.id}">
+              <td class="d-md-table-cell w-25" id="${film.id}" onclick="seeform(this)" data-toggle="modal" data-target="#exampleModal">${film.name}</td>
+              <td class="d-none d-md-table-cell text-md-center" id="${film.id}" onclick="seeform(this)" data-toggle="modal" data-target="#exampleModal">${film.typeObject}</td>
+              <td class="d-none d-md-table-cell" style="padding-left: 3rem !important" id="${film.id}" onclick="seeform(this)" data-toggle="modal" data-target="#exampleModal">${film.address}</td>
+              <td class="text-center d-md-table-cell"><button class="btnred" id="${film.id}" type="button" onclick="seeform(this)" data-toggle="modal" data-target="#putModal">Изменение</button><button class="btnred mt-1 mx-md-1" id="${film.id}" onclick="seeform(this)" type="button" data-toggle="modal" data-target="#deleteModal">Удаление</button></td>
+              <td class="d-none">${film.socialPrivileges}</td>
+              <td class="d-none">${film.admArea}</td>
+            </tr>`;
+        });
+        main.innerHTML = mainContent;
+        //admSelector()
+        //typeSelector()
+        //socialSelector()
+        //setTimeout(only, 1000);
+        getPagination('#allnames')
+    });
+
+    function reset(){
+        let mainContent = '',
+        main = document.querySelector('#spisok');
+    test().then(films => {
+        films.forEach(film => {
+            mainContent += `
+            <tr class="pos" height="74px" id="${film.id}">
+              <td class="d-md-table-cell w-25" id="${film.id}" onclick="seeform(this)" data-toggle="modal" data-target="#exampleModal">${film.name}</td>
+              <td class="d-none d-md-table-cell text-md-center" id="${film.id}" onclick="seeform(this)" data-toggle="modal" data-target="#exampleModal">${film.typeObject}</td>
+              <td class="d-none d-md-table-cell" style="padding-left: 3rem !important" id="${film.id}" onclick="seeform(this)" data-toggle="modal" data-target="#exampleModal">${film.address}</td>
+              <td class="text-center d-md-table-cell"><button class="btnred" id="${film.id}" type="button" onclick="seeform(this)" data-toggle="modal" data-target="#putModal">Изменение</button><button class="btnred mt-1 mx-md-1" id="${film.id}" onclick="seeform(this)" type="button" data-toggle="modal" data-target="#deleteModal">Удаление</button></td>
+              <td class="d-none">${film.socialPrivileges}</td>
+              <td class="d-none">${film.admArea}</td>
+            </tr>`;
+        });
+        main.innerHTML = mainContent;
+        //admSelector()
+        //typeSelector()
+        //socialSelector()
+        //setTimeout(only, 1000);
+        getPagination('#allnames')
+    })
+}
+
+    function getPagination(table) {
+        var lastPage = 1;
+
+        $('#maxRows').on('change', function (evt) {
+            lastPage = 1;
+            $('.pagination')
+                .find('li')
+                .slice(1, -1)
+                .remove();
+            var trnum = 0;
+            var maxRows = parseInt($('#maxRows').val());
+
+            if (maxRows == 5000) {
+                $('.pagination').hide();
+            } else {
+                $('.pagination').show();
+            }
+
+            var totalRows = $(table + ' tbody tr').length;
+            $(table + ' tr:gt(0)').each(function () {
+                trnum++;
+                if (trnum > maxRows) {
+
+                    $(this).hide();
+                }
+                if (trnum <= maxRows) {
+                    $(this).show();
+                }
+            });
+            if (totalRows > maxRows) {
+                var pagenum = Math.ceil(totalRows / maxRows);
+                for (var i = 1; i <= pagenum;) {
+                    $('.pagination #prev').before('<li class="page-item" data-page="' + i + '">\<span class="page-link">' + i++ + '<span class="sr-only">(current)</span></span>\</li>').show();
+                }
+            }
+            $('.pagination [data-page="1"]').addClass('active');
+            $('.pagination li').on('click', function (evt) {
+                evt.stopImmediatePropagation();
+                evt.preventDefault();
+                var pageNum = $(this).attr('data-page');
+                var maxRows = parseInt($('#maxRows').val());
+                if (pageNum == 'prev') {
+                    if (lastPage == 1) {
+                        return;
+                    }
+                    pageNum = --lastPage;
+                }
+                if (pageNum == 'next') {
+                    if (lastPage == $('.pagination li').length - 2) {
+                        return;
+                    }
+                    pageNum = ++lastPage;
+                }
+                lastPage = pageNum;
+                var trIndex = 0;
+                $('.pagination li').removeClass('active');
+                $('.pagination [data-page="' + lastPage + '"]').addClass('active');
+                limitPagging();
+                $(table + ' tr:gt(0)').each(function () {
+                    trIndex++;
+                    if (
+                        trIndex > maxRows * pageNum ||
+                        trIndex <= maxRows * pageNum - maxRows
+                    ) {
+                        $(this).hide();
+                    } else {
+                        $(this).show();
+                    }
+                });
+            });
+            limitPagging();
+        }).val(10).change();
+        limitPagging();
+    }
+
+    function limitPagging() {
+        // alert($('.pagination li').length)
+
+        if ($('.pagination li').length > 7) {
+            if ($('.pagination li.active').attr('data-page') <= 3) {
+                $('.pagination li:gt(5)').hide();
+                $('.pagination li:lt(5)').show();
+                $('.pagination [data-page="next"]').show();
+            } if ($('.pagination li.active').attr('data-page') > 3) {
+                $('.pagination li:gt(0)').hide();
+                $('.pagination [data-page="next"]').show();
+                for (let i = (parseInt($('.pagination li.active').attr('data-page')) - 2); i <= (parseInt($('.pagination li.active').attr('data-page')) + 2); i++) {
+                    $('.pagination [data-page="' + i + '"]').show();
+
+                }
+
+            }
+        }
+    }
+
+    $(function () {
+        // Just to append id number for each row
+        $('table tr:eq(0)').prepend('<th class="d-none"> ID </th>');
+
+        var id = 0;
+
+        $('table tr:gt(0)').each(function () {
+            id++;
+            $(this).prepend('<td class="d-none">' + id + '</td>');
+        });
+    });
+
+    async function seeform(el) {
+        id = el.id
+        let url = "http://exam-2020-1-api.std-900.ist.mospolytech.ru/api/data1/" + id
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                "Accept": "application/json",
+            }
+        });
+        json = await response.json();
+        //console.log('Успех:', JSON.stringify(json),json.name)
+        $('.recordname').val(json.name);
+        $('.recordtype').val(json.typeObject);
+        $('.recordrate').val(json.rate);
+        if (json.IsNetObject == 1) {
+            $('input[name="isNetObject"][value="1"]').prop('checked', true);
+        }
+        else {
+            $('input[name="isNetObject"][value="0"]').prop('checked', true);
+        }
+        if (json.socialPrivileges == 1) {
+            $('input[name="socialPrivileges"][value="1"]').prop('checked', true);
+        }
+        else {
+            $('input[name="socialPrivileges"][value="0"]').prop('checked', true);
+        }
+        $('.recordAddress').val(json.address);
+        $('.recordSeats').val(json.seatsCount);
+        $('.recordNumber').val(json.publicPhone);
+        let form = new FormData(formput)
+        console.log(form)
+    }
+
+    async function putrefs() {
+        let formdata = new FormData();
+        let requestOptions = {
+            method: 'PUT',
+            body: new FormData(formput),
+            redirect: 'follow'
+        };
+
+        let form = new FormData(formput)
+        for (var pair of form.entries()) {
+            console.log(pair[0] + ', ' + pair[1])
+        }
+
+        fetch("http://exam-2020-1-api.std-900.ist.mospolytech.ru/api/data1/" + id + "?api_key=22dcb7d1-e4ce-49ed-86fa-ee1e1b3569a5", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error));
+
+    }
+
+    async function deleteRef() {
+        var requestOptions = {
+            method: 'DELETE',
+            body: new FormData(formput),
+            redirect: 'follow'
+        };
+
+        fetch("http://exam-2020-1-api.std-900.ist.mospolytech.ru/api/data1/" + id + "?api_key=22dcb7d1-e4ce-49ed-86fa-ee1e1b3569a5", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result))
+            .catch(error => console.log('error', error)).then(reset());
+    }
+
+    async function addRef(){
+        var requestOptions = {
+            method: 'POST',
+            body: new FormData(formadd),
+            redirect: 'follow'
+          };
+          
+          fetch("http://exam-2020-1-api.std-900.ist.mospolytech.ru/api/data1?api_key=22dcb7d1-e4ce-49ed-86fa-ee1e1b3569a5", requestOptions)
+            .then(response => response.text())
+            .then(result => console.log(result)).then($("formadd input").val(0)).then(reset())
+            .catch(error => console.log('error', error));
+        }
+</script>
+
+</html>
