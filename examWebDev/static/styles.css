@@ -37,3 +37,7 @@ body{
 .modal-content{
     background: #141111 !important;
 }
+
+.editor-toolbar{
+    background: antiquewhite !important;
+}

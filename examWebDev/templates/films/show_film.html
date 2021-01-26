@@ -4,6 +4,12 @@
 
 <h1 class="my-5">Просмотр данных о Фильме</h1>
 
+{% if current_user.is_authenticated %}
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add_to_compilation" data-url="{{ url_for('add_to_compilation', film_id=film.id) }}">
+            Добавить в подборку
+        </button>
+{% endif %}
+
 <table class="table mt-3">
     <tbody>
         <tr>
@@ -16,7 +22,7 @@
         </tr>
         <tr>
             <td>Информация:</td>
-            <td>{{ film.info }}</td>
+            <td>{{ Markdown(bleach(film.info)) | safe }}</td>
         </tr>
         <tr>
             <td>Год выпуска:</td>
@@ -58,7 +64,7 @@
             <div class="media-body green">
                 <h3 class="mt-0">{{ comment.login }}</h5>
                 <h5 class="mt-1">Оценка: {{ comment.cnt }}</h5>
-                <p class="mt-1">{{ comment.opinion}}</p>
+                <p class="mt-1">{{ Markdown(bleach(comment.opinion)) | safe }}</p>
             </div>
         </div>
     {% elif comment.cnt == 3 %}
@@ -66,7 +72,7 @@
             <div class="media-body yellow">
                 <h3 class="mt-0">{{ comment.login }}</h5>
                 <h5 class="mt-1">Оценка: {{ comment.cnt }}</h5>
-                <p class="mt-1">{{ comment.opinion}}</p>
+                <p class="mt-1">{{ Markdown(bleach(comment.opinion)) | safe }}</p>
             </div>
         </div>
     {% elif comment.cnt < 3 %}
@@ -74,10 +80,39 @@
             <div class="media-body red">
                 <h3 class="mt-0">{{ comment.login }}</h5>
                 <h5 class="mt-1">Оценка: {{ comment.cnt }}</h5>
-                <p class="mt-1">{{ comment.opinion}}</p>
+                <p class="mt-1">{{ Markdown(bleach(comment.opinion)) | safe }}</p>
             </div>
         </div>
     {% endif %}
 {% endfor %}
+
+<div class="modal" tabindex="-1" role="dialog" id="add_to_compilation">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Добавление в подборку</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <p>Выберите подборку:</p>
+            <p>Вы уверены, что хотите добавить фильм в подборку?</p>
+            <select name="compilation_id" id="compilation_id" class="form-control" form="form">
+                {% for compilation in compilations %}
+                    <option value="{{ compilation.id }}">{{ compilation.name }}</option>
+                {% endfor %}
+            </select>
+            <form action="" method="POST" class="d-none" id="form">
+                <input id="add-btn" type="submit">
+            </form>
+        </div>
+        <div class="modal-footer">
+          <label for="add-btn" class="btn btn-danger mb-0 cursor-pointer">Да</label>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Нет</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock %}

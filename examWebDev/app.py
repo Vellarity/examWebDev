@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from flask_login import login_required, current_user
 from mysql_db import MySQL
 import mysql.connector as connector
-
+from markdown import markdown as Markdown
+from bleach import clean as bleach
 
 app = Flask(__name__)
 application = app
@@ -71,7 +72,7 @@ def films():
     cursor.close()
     print(users)
     print(user_id)
-    return render_template('films/index.html', films=films, user=user)
+    return render_template('films/index.html', films=films, user=user, Markdown=Markdown, bleach=bleach)
 
 
 @app.route('/films/new_film')
@@ -230,24 +231,23 @@ def update_film(film_id):
     return redirect(url_for('films'))
 
 
-@app.route('/films/<int:film_id>')
+@app.route('/films/<int:film_id>',  methods=['POST','GET'])
 @login_required
 def show_film(film_id):
     user_id=current_user.get_id()
     cursor = mysql.connection.cursor(named_tuple=True)
     cursor.execute('SELECT * FROM exam_film WHERE id = %s;', (film_id,))
     film = cursor.fetchone()
-    print(film)
     cursor.execute('SELECT GROUP_CONCAT(name_genre) as genre_name FROM exam_genres_films WHERE id_film=%s;', (film_id,))
     genres = cursor.fetchone()
     cursor.execute('SELECT exam_rec.*, exam_users.login FROM exam_rec INNER JOIN exam_users ON exam_rec.user_id = exam_users.id HAVING film_id = %s;', (film_id,))
     comments = cursor.fetchall()
-    print(comments)
     cursor.execute('SELECT * FROM exam_rec WHERE film_id = %s and user_id = %s', (film_id, user_id, ))
     check_com = cursor.fetchone()
-    print(check_com)
+    cursor.execute('SELECT * FROM exam_compilations WHERE user_id=%s;', (user_id,))
+    compilations = cursor.fetchall()
     cursor.close()
-    return render_template('films/show_film.html', film=film, genres=genres, comments=comments, check_com=check_com)
+    return render_template('films/show_film.html', film=film, genres=genres, comments=comments, check_com=check_com, compilations=compilations, Markdown=Markdown, bleach=bleach)
 
 
 @app.route('/films/<int:film_id>/create_rec')
@@ -274,11 +274,13 @@ def commit_rec(film_id):
         genres = cursor.fetchone()
         cursor.execute('SELECT exam_rec.*, exam_users.login FROM exam_rec INNER JOIN exam_users ON exam_rec.user_id = exam_users.id HAVING film_id = %s;', (film_id,))
         comments = cursor.fetchall()
+        cursor.execute('SELECT * FROM exam_compilations WHERE user_id=%s;', (user_id,))
+        compilations = cursor.fetchall()
     except connector.errors.DatabaseError as err:
         return render_template('films/create_rec.html', film_id=film_id, user_id=user_id)
     cursor.close()
     mysql.connection.commit()
-    return render_template('/films/show_film.html', film=film, genres=genres, comments=comments)
+    return request(url_for('show_film', film=film, genres=genres, comments=comments, check_com=check_com, compilations=compilations, Markdown=Markdown, bleach=bleach))
 
 
 @app.route('/films/<int:film_id>/delete', methods=['POST'])
@@ -296,17 +298,55 @@ def delete_film(film_id):
     return redirect(url_for('films'))
 
 
+
+@app.route('/films/<int:film_id>/add_to_compilation', methods=['POST','GET'])
+@login_required
+def add_to_compilation(film_id):
+    compilation_id = request.form.get('compilation_id')
+    cursor = mysql.connection.cursor(named_tuple=True)
+    try:
+        cursor.execute('INSERT INTO exam_comp_films (id_film, id_comp) VALUES (%s,%s)', (film_id, compilation_id,))
+    except connector.errors.DatabaseError as err:
+        flash('Не удалось добавить фильм в подборку','danger')
+        return redirect(url_for('show_film', film_id=film_id))
+    mysql.connection.commit()
+    flash('Фильм успешно добален в подборку','success')
+    cursor.close()
+    mysql.connection.commit()
+    return redirect(url_for('show_film', film_id=film_id))
+
+
+@app.route('/show_compilations/<int:compilation_id>/<int:film_id>/delete_from_compilation', methods=['POST','GET'])
+@login_required
+def delete_from_compilation(film_id, compilation_id):
+    cursor = mysql.connection.cursor(named_tuple=True)
+    try:
+        cursor.execute('DELETE FROM exam_comp_films WHERE id_film=%s and id_comp=%s', (film_id, compilation_id,))
+        cursor.execute('SELECT * FROM (SELECT exam_film.id as id, name, year_w, CASE WHEN count(opinion) IS NULL THEN 0 ELSE count(opinion) END as op_cnt FROM exam_film LEFT JOIN exam_rec ON exam_film.id = exam_rec.film_id GROUP BY exam_film.id) op INNER JOIN(SELECT exam_film.id as film_id, GROUP_CONCAT(name_genre) as genre_name FROM exam_film INNER JOIN exam_genres_films ON exam_film.id = exam_genres_films.id_film GROUP BY exam_film.id) gen ON op.id = gen.film_id INNER JOIN exam_comp_films ON gen.film_id = exam_comp_films.id_film WHERE exam_comp_films.id_comp = %s;', (compilation_id,))
+        films = cursor.fetchall()
+    except connector.errors.DatabaseError as err:
+        flash('Не удалось удалить фильм из подборки','danger')
+        return redirect(url_for('show_compilation', compilation_id=compilation_id))
+    mysql.connection.commit()
+    flash('Фильм успешно удалён из подборки','success')
+    cursor.close()
+    mysql.connection.commit()
+    return redirect(url_for('show_compilation', films=films, compilation_id=compilation_id))
+
+
+
 @app.route('/films/show_compilations')
 @login_required
 def show_compilations():
     user_id = current_user.get_id()
     cursor = mysql.connection.cursor(named_tuple=True)
-    cursor.execute('SELECT id, name, user_id, CASE WHEN count(id_film) is NULL THEN 0 ELSE COUNT(id_film) END as cnt FROM exam_compilations LEFT JOIN exam_comp_films ON exam_compilations.id = exam_comp_films.id_comp WHERE user_id = %s GROUP BY id;', (user_id,))
+    cursor.execute(""" SELECT id, name, user_id, CASE WHEN count(id_film) is NULL THEN 0 ELSE COUNT(id_film) END as cnt FROM exam_compilations 
+    LEFT JOIN exam_comp_films ON exam_compilations.id = exam_comp_films.id_comp WHERE user_id = %s GROUP BY id; """, (user_id,))
     compilations = cursor.fetchall()
     print(compilations)
     cursor.close()
 
-    return render_template('films/show_compilations.html', compilations=compilations, user_id=user_id)
+    return render_template('films/show_compilations.html', compilations=compilations, user_id=user_id, Markdown=Markdown, bleach=bleach)
 
 
 @app.route('/films/new_compilation')
@@ -329,7 +369,7 @@ def commit_compilation():
     try:
         cursor.execute(query, (name, user_id,))
         cursor = mysql.connection.cursor(named_tuple=True)
-        cursor.execute('SELECT * FROM exam_compilations WHERE user_id = %s;', (user_id,))
+        cursor.execute('SELECT id, name, user_id, CASE WHEN count(id_film) is NULL THEN 0 ELSE COUNT(id_film) END as cnt FROM exam_compilations LEFT JOIN exam_comp_films ON exam_compilations.id = exam_comp_films.id_comp WHERE user_id = %s GROUP BY id;', (user_id,))
         compilations = cursor.fetchall()
     except connector.errors.DatabaseError as err:
         return render_template('films/new_compilation.html', user_id=user_id)
@@ -352,14 +392,15 @@ def delete_compilation(compilation_id):
     return redirect(url_for('show_compilations'))
 
 
-@app.route('/show_compilations/<int:compilation_id>')
+@app.route('/show_compilations/<int:compilation_id>', methods=['POST','GET'])
 @login_required
 def show_compilation(compilation_id):
     cursor = mysql.connection.cursor(named_tuple=True)
     cursor.execute('SELECT * FROM (SELECT exam_film.id as id, name, year_w, CASE WHEN count(opinion) IS NULL THEN 0 ELSE count(opinion) END as op_cnt FROM exam_film LEFT JOIN exam_rec ON exam_film.id = exam_rec.film_id GROUP BY exam_film.id) op INNER JOIN(SELECT exam_film.id as film_id, GROUP_CONCAT(name_genre) as genre_name FROM exam_film INNER JOIN exam_genres_films ON exam_film.id = exam_genres_films.id_film GROUP BY exam_film.id) gen ON op.id = gen.film_id INNER JOIN exam_comp_films ON gen.film_id = exam_comp_films.id_film WHERE exam_comp_films.id_comp = %s;', (compilation_id,))
     films = cursor.fetchall()
     cursor.close()
-    return render_template('films/show_compilation.html', films=films)
+    return render_template('films/show_compilation.html', films=films, compilation_id=compilation_id, Markdown=Markdown, bleach=bleach)
+    
 
 
 """ -------------------------------------------------------------------------------------------------- """
