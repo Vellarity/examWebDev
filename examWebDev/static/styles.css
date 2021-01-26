@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+}
+
+body{
+    font-size: 18px !important;
+    background: #141111 !important;
+    color: antiquewhite !important;
+}
+
+.table{
+    color: antiquewhite !important;
+}
+
+.cursor-pointer{
+    cursor:pointer;
+}
+
+.media-body{
+    border: 1px solid black !important;
+    border-radius: 5px;
+    color: #141111;
+}
+
+.green{
+    background: #52c314 !important;
+}
+
+.yellow{
+    background: #b8d320 !important;
+}
+
+.red{
+    background: #d12b2b !important;
+}
+
+.modal-content{
+    background: #141111 !important;
+}

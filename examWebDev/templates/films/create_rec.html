@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="my-5">Добавление рецензии</h1>
+
+<form action="{{ url_for('commit_rec', film_id=film_id) }}" method="POST">
+    <div class="form-group">
+        <label for="cnt" class="col-form-label col-md-2">Оценка</label>
+        <div class="col-md-6">
+            <select name="cnt" id="cnt" class="form-control">
+                    <option value=5>Отлично</option>
+                    <option value=4>Хорошо</option>
+                    <option value=3>Удовлетворительно</option>
+                    <option value=2>Неудовлетворительно</option>
+                    <option value=1>Ужасно</option>
+            </select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="rec" class="col-form-label col-md-2">Текст рецензии</label>
+        <div class="col-md-6">
+            <textarea class="form-control" type="textarea" name="rec" id="rec"></textarea>
+        </div>
+    </div>
+    <div class="form-group">
+        
+        <input type="submit" class="btn btn-primary" value="Сохранить">
+        
+    </div>
+</form>
+
+{% endblock %}
