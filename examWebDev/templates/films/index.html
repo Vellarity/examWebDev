@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% from 'pagination.html' import render_pagination %}
+
 {% block content %}
 
 <h1 class="my-5">Список фильмов</h1>
@@ -40,6 +42,9 @@
         {% endfor %}
     </tbody>
 </table>
+
+{{ render_pagination(request.endpoint, pagination_info) }}
+
 {% if current_user.is_authenticated and current_user.can('new') %}
 <a class="btn btn-primary" href="{{ url_for('new_film') }}">Добавить фильм</a>
 {% endif %}

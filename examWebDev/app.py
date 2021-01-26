@@ -4,6 +4,7 @@ from mysql_db import MySQL
 import mysql.connector as connector
 from markdown import markdown as Markdown
 from bleach import clean as bleach
+import math
 
 app = Flask(__name__)
 application = app
@@ -18,6 +19,7 @@ from auth import bp as auth_bp , init_login_manager, check_rights
 init_login_manager(app)
 app.register_blueprint(auth_bp)
 
+PER_PAGE = 10
 
 def load_roles():
     cursor = mysql.connection.cursor(named_tuple=True)
@@ -61,18 +63,32 @@ def load_genres():
 
 @app.route('/films')
 def films():
+    page = request.args.get('page', 1, type=int)
+    with mysql.connection.cursor(named_tuple = True) as cursor:
+        cursor.execute('SELECT count(*) AS count FROM visit_logs;')
+        total_count = cursor.fetchone().count
+    total_pages = math.ceil(total_count/PER_PAGE)
+    pagination_info = {
+        'current_page' : page,
+        'total_pages' : total_pages,
+        'per_page' : PER_PAGE
+    }
     cursor = mysql.connection.cursor(named_tuple=True)
-    cursor.execute('SELECT * FROM (SELECT exam_film.id as id, name, year_w, CASE WHEN count(opinion) IS NULL THEN 0 ELSE count(opinion) END as op_cnt FROM exam_film LEFT JOIN exam_rec ON exam_film.id = exam_rec.film_id GROUP BY exam_film.id) op INNER JOIN(SELECT exam_film.id as film_id, GROUP_CONCAT(name_genre) as genre_name FROM exam_film INNER JOIN exam_genres_films ON exam_film.id = exam_genres_films.id_film GROUP BY exam_film.id) gen ON op.id = gen.film_id')
+    query = """ SELECT * FROM (SELECT exam_film.id as id, name, year_w, 
+    CASE WHEN count(opinion) IS NULL THEN 0 ELSE count(opinion) END as op_cnt FROM exam_film 
+    LEFT JOIN exam_rec ON exam_film.id = exam_rec.film_id GROUP BY exam_film.id) op 
+    INNER JOIN(SELECT exam_film.id as film_id, GROUP_CONCAT(name_genre) as genre_name FROM exam_film 
+    INNER JOIN exam_genres_films ON exam_film.id = exam_genres_films.id_film GROUP BY exam_film.id) gen ON op.id = gen.film_id ORDER BY year_w DESC
+    LIMIT %s OFFSET %s; """
+    cursor.execute(query, (PER_PAGE, PER_PAGE*(page-1)))
     films = cursor.fetchall()
-    cursor.close()
-    cursor = mysql.connection.cursor(named_tuple=True)
     user_id = current_user.get_id()
     cursor.execute('SELECT exam_users.*, exam_roles.name AS role_name FROM exam_users LEFT OUTER JOIN exam_roles ON exam_users.role_id = exam_roles.id HAVING exam_users.id = %s;', (user_id,))
     user = cursor.fetchone()
     cursor.close()
     print(users)
     print(user_id)
-    return render_template('films/index.html', films=films, user=user, Markdown=Markdown, bleach=bleach)
+    return render_template('films/index.html', films=films, user=user, Markdown=Markdown, bleach=bleach, pagination_info=pagination_info)
 
 
 @app.route('/films/new_film')
@@ -145,7 +161,8 @@ def create_film():
 @login_required
 def edit_film(film_id):
     cursor = mysql.connection.cursor(named_tuple=True)
-    cursor.execute('SELECT id, name, info, country, s_writer, director, actors, duration, year_w, GROUP_CONCAT(name_genre) as genre FROM exam_film INNER JOIN exam_genres_films ON exam_film.id = exam_genres_films.id_film WHERE id =%s GROUP BY id;', (film_id,))
+    cursor.execute(""" SELECT id, name, info, country, s_writer, director, actors, duration, year_w, 
+    GROUP_CONCAT(name_genre) as genre FROM exam_film INNER JOIN exam_genres_films ON exam_film.id = exam_genres_films.id_film WHERE id =%s GROUP BY id; """, (film_id,))
     film = cursor.fetchone()
     cursor.close()
     return render_template('films/edit_film.html', film=film, genres = load_genres())
@@ -322,7 +339,11 @@ def delete_from_compilation(film_id, compilation_id):
     cursor = mysql.connection.cursor(named_tuple=True)
     try:
         cursor.execute('DELETE FROM exam_comp_films WHERE id_film=%s and id_comp=%s', (film_id, compilation_id,))
-        cursor.execute('SELECT * FROM (SELECT exam_film.id as id, name, year_w, CASE WHEN count(opinion) IS NULL THEN 0 ELSE count(opinion) END as op_cnt FROM exam_film LEFT JOIN exam_rec ON exam_film.id = exam_rec.film_id GROUP BY exam_film.id) op INNER JOIN(SELECT exam_film.id as film_id, GROUP_CONCAT(name_genre) as genre_name FROM exam_film INNER JOIN exam_genres_films ON exam_film.id = exam_genres_films.id_film GROUP BY exam_film.id) gen ON op.id = gen.film_id INNER JOIN exam_comp_films ON gen.film_id = exam_comp_films.id_film WHERE exam_comp_films.id_comp = %s;', (compilation_id,))
+        cursor.execute(""" SELECT * FROM (SELECT exam_film.id as id, name, year_w, CASE WHEN count(opinion) IS NULL THEN 0 ELSE count(opinion) END as op_cnt FROM exam_film 
+        LEFT JOIN exam_rec ON exam_film.id = exam_rec.film_id GROUP BY exam_film.id) op 
+        INNER JOIN(SELECT exam_film.id as film_id, GROUP_CONCAT(name_genre) as genre_name FROM exam_film 
+        INNER JOIN exam_genres_films ON exam_film.id = exam_genres_films.id_film GROUP BY exam_film.id) gen ON op.id = gen.film_id 
+        INNER JOIN exam_comp_films ON gen.film_id = exam_comp_films.id_film WHERE exam_comp_films.id_comp = %s; """, (compilation_id,))
         films = cursor.fetchall()
     except connector.errors.DatabaseError as err:
         flash('Не удалось удалить фильм из подборки','danger')
@@ -369,7 +390,8 @@ def commit_compilation():
     try:
         cursor.execute(query, (name, user_id,))
         cursor = mysql.connection.cursor(named_tuple=True)
-        cursor.execute('SELECT id, name, user_id, CASE WHEN count(id_film) is NULL THEN 0 ELSE COUNT(id_film) END as cnt FROM exam_compilations LEFT JOIN exam_comp_films ON exam_compilations.id = exam_comp_films.id_comp WHERE user_id = %s GROUP BY id;', (user_id,))
+        cursor.execute(""" SELECT id, name, user_id, CASE WHEN count(id_film) is NULL THEN 0 ELSE COUNT(id_film) END as cnt FROM exam_compilations 
+        LEFT JOIN exam_comp_films ON exam_compilations.id = exam_comp_films.id_comp WHERE user_id = %s GROUP BY id; """, (user_id,))
         compilations = cursor.fetchall()
     except connector.errors.DatabaseError as err:
         return render_template('films/new_compilation.html', user_id=user_id)
@@ -396,7 +418,11 @@ def delete_compilation(compilation_id):
 @login_required
 def show_compilation(compilation_id):
     cursor = mysql.connection.cursor(named_tuple=True)
-    cursor.execute('SELECT * FROM (SELECT exam_film.id as id, name, year_w, CASE WHEN count(opinion) IS NULL THEN 0 ELSE count(opinion) END as op_cnt FROM exam_film LEFT JOIN exam_rec ON exam_film.id = exam_rec.film_id GROUP BY exam_film.id) op INNER JOIN(SELECT exam_film.id as film_id, GROUP_CONCAT(name_genre) as genre_name FROM exam_film INNER JOIN exam_genres_films ON exam_film.id = exam_genres_films.id_film GROUP BY exam_film.id) gen ON op.id = gen.film_id INNER JOIN exam_comp_films ON gen.film_id = exam_comp_films.id_film WHERE exam_comp_films.id_comp = %s;', (compilation_id,))
+    cursor.execute(""" SELECT * FROM (SELECT exam_film.id as id, name, year_w, CASE WHEN count(opinion) IS NULL THEN 0 ELSE count(opinion) END as op_cnt FROM exam_film 
+    LEFT JOIN exam_rec ON exam_film.id = exam_rec.film_id GROUP BY exam_film.id) op 
+    INNER JOIN(SELECT exam_film.id as film_id, GROUP_CONCAT(name_genre) as genre_name FROM exam_film 
+    INNER JOIN exam_genres_films ON exam_film.id = exam_genres_films.id_film GROUP BY exam_film.id) gen ON op.id = gen.film_id 
+    INNER JOIN exam_comp_films ON gen.film_id = exam_comp_films.id_film WHERE exam_comp_films.id_comp = %s; """, (compilation_id,))
     films = cursor.fetchall()
     cursor.close()
     return render_template('films/show_compilation.html', films=films, compilation_id=compilation_id, Markdown=Markdown, bleach=bleach)
