@@ -249,7 +249,6 @@ def update_film(film_id):
 
 
 @app.route('/films/<int:film_id>',  methods=['POST','GET'])
-@login_required
 def show_film(film_id):
     user_id=current_user.get_id()
     cursor = mysql.connection.cursor(named_tuple=True)
