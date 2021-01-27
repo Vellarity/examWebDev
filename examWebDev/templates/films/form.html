@@ -23,7 +23,7 @@
     <div class="form-group">
         <label for="info" class="col-form-label col-md-2">Инфо</label>
         <div class="col-md-6">
-            <textarea class="form-control" type="textarea" name="info" id="info" value="{{ film.info or '' }}"></textarea>
+            <textarea class="form-control" type="textarea" name="info" id="info" value="{{ film.info or '' }}">{{ film.info or '' }}</textarea>
             <script>
                 var easyMDE = new EasyMDE();
             </script>

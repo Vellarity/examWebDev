@@ -210,8 +210,6 @@ def update_film(film_id):
             'genre' : ', '.join(genre)
         }
         return render_template('films/edit_film.html', film=film, genres = load_genres())
-    cursor.close()
-    cursor = mysql.connection.cursor(named_tuple=True)
     cursor.execute('SELECT name_genre FROM exam_genres_films WHERE id_film=%s', (film_id,))
     rec_gen = cursor.fetchall()
     cursor.close()
@@ -242,8 +240,8 @@ def update_film(film_id):
         if len(delete_gen) > 0:
             for gen in delete_gen:
                 cursor.execute(del_query, (gen,film_id))
-        cursor.close()
-        mysql.connection.commit()
+    cursor.close()
+    mysql.connection.commit()
     flash(f'Фильм {name} был успешно изменён.','success')
     return redirect(url_for('films'))
 
@@ -292,11 +290,15 @@ def commit_rec(film_id):
         comments = cursor.fetchall()
         cursor.execute('SELECT * FROM exam_compilations WHERE user_id=%s;', (user_id,))
         compilations = cursor.fetchall()
+        cursor.execute('SELECT * FROM exam_rec WHERE film_id = %s and user_id = %s', (film_id, user_id, ))
+        check_com = cursor.fetchone()
     except connector.errors.DatabaseError as err:
+        flash('Не удалось добавить комментарий','danger')
         return render_template('films/create_rec.html', film_id=film_id, user_id=user_id)
     cursor.close()
     mysql.connection.commit()
-    return request(url_for('show_film', film=film, genres=genres, comments=comments, check_com=check_com, compilations=compilations, Markdown=Markdown, bleach=bleach))
+    flash('Комментарий успешно добавлен','success')
+    return redirect(url_for('show_film', film_id=film_id, user_id=user_id))
 
 
 @app.route('/films/<int:film_id>/delete', methods=['POST'])
@@ -312,7 +314,6 @@ def delete_film(film_id):
         mysql.connection.commit()
         flash('Запись успешно удалена','success')
     return redirect(url_for('films'))
-
 
 
 @app.route('/films/<int:film_id>/add_to_compilation', methods=['POST','GET'])
@@ -396,7 +397,7 @@ def commit_compilation():
         return render_template('films/new_compilation.html', user_id=user_id)
     cursor.close()
     mysql.connection.commit()
-    return render_template('/films/show_compilations.html', compilations=compilations)
+    return redirect('show_compilations')
 
 
 @app.route('/films/show_compilations/<int:compilation_id>/delete_compilation', methods=['POST'])
