@@ -126,6 +126,11 @@ def create_film():
         INSERT INTO exam_genres_films (name_genre, id_film)
         VALUES (%s,%s); 
     '''
+    print(genre)
+    if genre != None:
+        genre_list = ', '.join(genre)
+    else:
+         genre_list = ''
     film = {
             'name' : name,
             'info' : info,
@@ -135,7 +140,7 @@ def create_film():
             'director' : director,
             'actors' : actors,
             'duration' : duration,
-            'genre' : ', '.join(genre)
+            'genre' : genre_list
         }
     cursor = mysql.connection.cursor(named_tuple=True)
     try:
